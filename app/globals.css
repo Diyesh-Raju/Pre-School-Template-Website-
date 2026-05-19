@@ -1,0 +1,508 @@
+@import "tailwindcss";
+
+/* 1. GLOBAL FONT FIX FOR HYDRATION ERROR */
+@layer base {
+  body {
+    font-family: var(--font-quicksand, "Quicksand", "Poppins", sans-serif);
+  }
+}
+
+:root {
+  /* Soft off-white backdrop everywhere */
+  --bg-primary: #FDFCF0;
+  --bg-secondary: #F7F4E3;
+  --bg-card: rgba(255, 255, 255, 0.75);
+
+  /* Playful coral as the single accent (replaces gold) */
+  --accent-coral: #FF7F50;
+  --accent-coral-light: #FF9974;
+  --accent-coral-dark: #E86A3D;
+
+  /* Keep the old --accent-gold names so existing var() references map to coral without code churn */
+  --accent-gold: var(--accent-coral);
+  --accent-gold-light: var(--accent-coral-light);
+
+  /* Dark charcoal text */
+  --text-primary: #333333;
+  --text-secondary: #6B6963;
+
+  --border-glass: rgba(255, 127, 80, 0.22);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-crimson: var(--font-crimson), serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-primary);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins, "Poppins", sans-serif);
+  color: var(--text-primary);
+}
+
+h1, h2, .hero-main-text {
+  font-family: "Comic Sans MS", "Comic Sans", cursive !important;
+  font-weight: bold !important;
+}
+
+/* Glassmorphism — light variant (white with coral border) */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 127, 80, 0.3);
+}
+
+/* Coral accent text utilities (kept under .text-gold names for legacy refs) */
+.text-gold {
+  color: var(--accent-coral);
+}
+
+.text-gold-light {
+  color: var(--accent-coral-light);
+}
+
+.text-coral {
+  color: var(--accent-coral);
+}
+
+/* Gradient text — coral on coral */
+.gradient-text {
+  background: linear-gradient(135deg, #FF7F50, #FF9974, #FF7F50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section spacing */
+.section {
+  padding: 5rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 2.5rem;
+  }
+}
+
+/* Scrollbar styling — coral on off-white */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-coral);
+  border-radius: 3px;
+}
+
+/* ── Mobile-only animation system ─────────────────────────────────────────
+   GSAP/ScrollTrigger has reliability issues on iOS Safari. On mobile we run
+   CSS animations + IntersectionObserver instead. Desktop is untouched and
+   continues to use GSAP. All rules below are gated by max-width:767px.
+*/
+
+/* Mobile-hero entrance — CSS-only, plays once on load.
+   Uses longhand properties to avoid any iOS Safari shorthand-parsing quirks. */
+@keyframes lmFadeUp {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.mobile-fadeup {
+  opacity: 0;
+  animation-name: lmFadeUp;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  -webkit-animation-name: lmFadeUp;
+  -webkit-animation-duration: 0.7s;
+  -webkit-animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: 1;
+  will-change: opacity, transform;
+}
+
+/* Mobile section reveal — transition driven by `.is-revealed` class.
+   The class is toggled by an IntersectionObserver (see ScrollTriggerInit.tsx)
+   so the reveal replays every time an element enters the viewport, and resets
+   when it leaves. Desktop is unaffected because the @media query restricts
+   to <=767px. */
+@media (max-width: 767px) {
+  .teacher-pillar,
+  .about-content,
+  .stage-card,
+  .principal-card,
+  .principal-content,
+  .activity-card,
+  .curriculum-stage,
+  .gallery-item,
+  .petal-intro,
+  .petal-mascot,
+  .petal-card {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .teacher-pillar.is-revealed,
+  .about-content.is-revealed,
+  .stage-card.is-revealed,
+  .principal-card.is-revealed,
+  .principal-content.is-revealed,
+  .activity-card.is-revealed,
+  .curriculum-stage.is-revealed,
+  .gallery-item.is-revealed,
+  .petal-intro.is-revealed,
+  .petal-mascot.is-revealed,
+  .petal-card.is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Staggered delays so multi-card sections cascade in.
+     Applied only while revealing — removed on reset so the snap-back is
+     instant and the next reveal restarts the cascade cleanly. */
+  .teacher-pillar.is-revealed:nth-of-type(2),
+  .stage-card.is-revealed:nth-of-type(2),
+  .principal-card.is-revealed:nth-of-type(2),
+  .activity-card.is-revealed:nth-of-type(2),
+  .curriculum-stage.is-revealed:nth-of-type(2),
+  .gallery-item.is-revealed:nth-of-type(2),
+  .petal-card.is-revealed:nth-of-type(2) {
+    transition-delay: 0.12s;
+  }
+  .teacher-pillar.is-revealed:nth-of-type(3),
+  .stage-card.is-revealed:nth-of-type(3),
+  .principal-card.is-revealed:nth-of-type(3),
+  .activity-card.is-revealed:nth-of-type(3),
+  .curriculum-stage.is-revealed:nth-of-type(3),
+  .gallery-item.is-revealed:nth-of-type(3),
+  .petal-card.is-revealed:nth-of-type(3) {
+    transition-delay: 0.24s;
+  }
+  .teacher-pillar.is-revealed:nth-of-type(n+4),
+  .stage-card.is-revealed:nth-of-type(n+4),
+  .principal-card.is-revealed:nth-of-type(n+4),
+  .activity-card.is-revealed:nth-of-type(n+4),
+  .curriculum-stage.is-revealed:nth-of-type(n+4),
+  .gallery-item.is-revealed:nth-of-type(n+4),
+  .petal-card.is-revealed:nth-of-type(n+4) {
+    transition-delay: 0.36s;
+  }
+}
+
+/* Mobile marquee — pure CSS, no JS dependency.
+   On desktop these don't apply, so GSAP keeps driving the tween. */
+@keyframes lmMarqueeSlide {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@media (max-width: 767px) {
+  .lm-marquee-track {
+    animation: lmMarqueeSlide 40s linear infinite;
+    will-change: transform;
+    /* Reset any inline transform GSAP may have left */
+    transform: translate3d(0, 0, 0);
+  }
+  .lm-marquee-track--fast {
+    animation: lmMarqueeSlide 25s linear infinite;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-fadeup,
+  .lm-marquee-track,
+  .lm-marquee-track--fast {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+  .teacher-pillar,
+  .about-content,
+  .stage-card,
+  .principal-card,
+  .principal-content,
+  .activity-card,
+  .curriculum-stage,
+  .gallery-item,
+  .petal-intro,
+  .petal-mascot,
+  .petal-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Marquee animation (legacy, unchanged) */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* FAQ accordion */
+.faq-answer {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+/* ── Stats banner decorations ────────────────────────────────────────────── */
+
+/* Vertical bob */
+@keyframes statsDecoBob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -14px, 0); }
+}
+
+/* Horizontal drift (with a touch of vertical) */
+@keyframes statsDecoDrift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(22px, -6px, 0); }
+}
+
+/* Continuous rotation */
+@keyframes statsDecoSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Side-to-side rotation */
+@keyframes statsDecoSway {
+  0%, 100% { transform: rotate(-9deg); }
+  50%      { transform: rotate(9deg); }
+}
+
+/* Combined bob + tilt */
+@keyframes statsDecoWobble {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-4deg); }
+  50%      { transform: translate3d(0, -8px, 0) rotate(4deg); }
+}
+
+.deco-bob      { animation: statsDecoBob    4.2s ease-in-out infinite; will-change: transform; }
+.deco-bob-slow { animation: statsDecoBob    6.5s ease-in-out infinite; will-change: transform; }
+.deco-drift    { animation: statsDecoDrift  7.5s ease-in-out infinite; will-change: transform; }
+.deco-spin     { animation: statsDecoSpin   14s  linear      infinite; will-change: transform; }
+.deco-spin-rev { animation: statsDecoSpin   20s  linear      infinite reverse; will-change: transform; }
+.deco-sway     { animation: statsDecoSway   5s   ease-in-out infinite; transform-origin: 50% 10%; will-change: transform; }
+.deco-wobble   { animation: statsDecoWobble 5.4s ease-in-out infinite; will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .deco-bob,
+  .deco-bob-slow,
+  .deco-drift,
+  .deco-spin,
+  .deco-spin-rev,
+  .deco-sway,
+  .deco-wobble {
+    animation: none;
+  }
+}
+
+/* Custom Liquid Coral Effect for Stats numbers — solid coral with soft glow */
+.liquid-glass-text {
+  background: linear-gradient(
+    135deg,
+    #FF9974 0%,
+    #FF7F50 45%,
+    #E86A3D 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 127, 80, 0.35);
+  filter: drop-shadow(0 6px 14px rgba(255, 127, 80, 0.25));
+}
+
+/* ── Seven Petal Approach section ─────────────────────────────────────────── */
+
+/* Mascot gentle bob */
+@keyframes petalMascotBob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -14px, 0); }
+}
+.petal-bob {
+  animation: petalMascotBob 4.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Balloons sway */
+@keyframes petalBalloonSway {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-3deg); }
+  50%      { transform: translate3d(2px, -10px, 0) rotate(3deg); }
+}
+.petal-balloons {
+  animation: petalBalloonSway 5s ease-in-out infinite;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+/* Flip on hover (desktop) and on focus / tap-hover (mobile Safari). */
+.petal-card:hover .petal-card-inner,
+.petal-card:focus-within .petal-card-inner,
+.petal-card:focus .petal-card-inner {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+/* Remove the default focus ring on the card itself — :focus is just our
+   touch-to-flip hook, the visible affordance is the flip animation. */
+.petal-card:focus,
+.petal-card:focus-visible {
+  outline: none;
+}
+
+/* Hide the scrollbar on the horizontal cards strip — arrows + swipe drive it. */
+.petal-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.petal-track::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal-bob,
+  .petal-balloons {
+    animation: none;
+  }
+  .petal-card-inner {
+    transition: none !important;
+  }
+}
+
+/* ── About-page hero image box — bright, shining coral outline ─────────────── */
+@keyframes aboutHeroGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 3px rgba(255, 127, 80, 0.6),
+      0 0 20px rgba(255, 127, 80, 0.5),
+      0 0 42px rgba(255, 127, 80, 0.34),
+      0 26px 56px -20px rgba(255, 127, 80, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(255, 127, 80, 0.98),
+      0 0 38px rgba(255, 127, 80, 0.85),
+      0 0 80px rgba(255, 159, 116, 0.6),
+      0 26px 56px -16px rgba(255, 127, 80, 0.42);
+  }
+}
+.about-hero-glow {
+  border: 5px solid #ff7f50;
+  animation: aboutHeroGlow 2.8s ease-in-out infinite;
+  will-change: box-shadow;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-hero-glow {
+    animation: none;
+    box-shadow:
+      0 0 0 5px rgba(255, 127, 80, 0.95),
+      0 0 32px rgba(255, 127, 80, 0.65),
+      0 0 64px rgba(255, 159, 116, 0.45),
+      0 26px 56px -18px rgba(255, 127, 80, 0.35);
+  }
+}
+
+/* ── Curriculum stage flip cards ──────────────────────────────────────────── */
+.flip-card {
+  perspective: 1600px;
+}
+.flip-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+/* Desktop (>=768px): flip on hover. Mobile (<768px): click-toggled via
+   React (.is-flipped on the inner). */
+@media (min-width: 768px) {
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+  }
+}
+@media (max-width: 767px) {
+  .flip-card-inner.is-flipped {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+  }
+}
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Front stays in normal flow and sets the card height; back overlays it */
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  overflow: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card-inner {
+    transition: none;
+  }
+}
+
+/* ── Mobile only: tap-to-toggle the curriculum flip cards ───────────────────
+   Desktop (>=768px) is untouched — it keeps the :hover flip defined above. */
+@media (max-width: 767px) {
+  .petal-card:hover .petal-card-inner,
+  .petal-card:focus-within .petal-card-inner,
+  .petal-card:focus .petal-card-inner {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+  }
+  .petal-card .petal-card-inner.is-flipped {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+  }
+}
+
