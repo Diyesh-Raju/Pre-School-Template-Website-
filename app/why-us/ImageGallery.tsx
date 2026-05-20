@@ -69,9 +69,15 @@ export function ImageGallery() {
     };
   }, [opened, next]);
 
+  // Shared classes for the prev/next buttons — desktop keeps the original
+  // side-of-image absolute positioning; on mobile both arrows render below the
+  // image inside a centered row (see the wrapper at the bottom of this JSX).
+  const arrowBtn =
+    "flex h-14 w-14 sm:h-16 sm:w-16 cursor-pointer items-center justify-center rounded-full border-2 border-white/20 bg-white/95 backdrop-blur-sm shadow-[0_8px_32px_rgba(0,0,0,0.12)] outline-none transition-all duration-300 ease-out hover:scale-110 hover:bg-white hover:border-white/40 hover:shadow-[0_12px_48px_rgba(0,0,0,0.18)] active:scale-95 focus-visible:ring-4 focus-visible:ring-white/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100";
+
   return (
-    <div className="relative flex w-full items-center justify-center">
-      <div className="relative h-[80vmin] w-[80vmin] max-h-[600px] max-w-[600px] overflow-hidden rounded-[20px] shadow-[0_2.8px_2.2px_rgba(0,0,0,0.02),0_6.7px_5.3px_rgba(0,0,0,0.028),0_12.5px_10px_rgba(0,0,0,0.035),0_22.3px_17.9px_rgba(0,0,0,0.042),0_41.8px_33.4px_rgba(0,0,0,0.05),0_100px_80px_rgba(0,0,0,0.07)]">
+    <div className="relative flex w-full flex-col items-center justify-center sm:block">
+      <div className="relative mx-auto h-[80vmin] w-[80vmin] max-h-[600px] max-w-[600px] overflow-hidden rounded-[20px] shadow-[0_2.8px_2.2px_rgba(0,0,0,0.02),0_6.7px_5.3px_rgba(0,0,0,0.028),0_12.5px_10px_rgba(0,0,0,0.035),0_22.3px_17.9px_rgba(0,0,0,0.042),0_41.8px_33.4px_rgba(0,0,0,0.05),0_100px_80px_rgba(0,0,0,0.07)]">
         {images.map((image, i) => (
           <div
             key={image.url}
@@ -94,8 +100,9 @@ export function ImageGallery() {
         </div>
       </div>
 
+      {/* Desktop / tablet arrows — flank the image (≥640px) */}
       <button
-        className="absolute left-[calc(50%-40vmin-40px)] sm:left-[calc(50%-300px-50px)] top-1/2 z-[101] flex h-14 w-14 sm:h-16 sm:w-16 -translate-y-1/2 -translate-x-1/2 cursor-pointer items-center justify-center rounded-full border-2 border-white/20 bg-white/95 backdrop-blur-sm shadow-[0_8px_32px_rgba(0,0,0,0.12)] outline-none transition-all duration-300 ease-out hover:scale-110 hover:bg-white hover:border-white/40 hover:shadow-[0_12px_48px_rgba(0,0,0,0.18)] active:scale-95 focus-visible:ring-4 focus-visible:ring-white/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+        className={`hidden sm:flex absolute left-[calc(50%-300px-50px)] top-1/2 z-[101] -translate-y-1/2 -translate-x-1/2 text-gray-800 ${arrowBtn}`}
         onClick={prev}
         disabled={disabled}
         aria-label="Previous Image"
@@ -109,14 +116,13 @@ export function ImageGallery() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-gray-800"
         >
           <path d="M15 18l-6-6 6-6" />
         </svg>
       </button>
 
       <button
-        className="absolute right-[calc(50%-40vmin-40px)] sm:right-[calc(50%-300px-50px)] top-1/2 z-[101] flex h-14 w-14 sm:h-16 sm:w-16 -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-full border-2 border-white/20 bg-white/95 backdrop-blur-sm shadow-[0_8px_32px_rgba(0,0,0,0.12)] outline-none transition-all duration-300 ease-out hover:scale-110 hover:bg-white hover:border-white/40 hover:shadow-[0_12px_48px_rgba(0,0,0,0.18)] active:scale-95 focus-visible:ring-4 focus-visible:ring-white/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+        className={`hidden sm:flex absolute right-[calc(50%-300px-50px)] top-1/2 z-[101] -translate-y-1/2 translate-x-1/2 text-gray-800 ${arrowBtn}`}
         onClick={next}
         disabled={disabled}
         aria-label="Next Image"
@@ -130,11 +136,52 @@ export function ImageGallery() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-gray-800"
         >
           <path d="M9 18l6-6-6-6" />
         </svg>
       </button>
+
+      {/* Mobile arrows (<640px) — sit in a row below the image */}
+      <div className="sm:hidden mt-6 flex items-center justify-center gap-8">
+        <button
+          className={`text-gray-800 ${arrowBtn}`}
+          onClick={prev}
+          disabled={disabled}
+          aria-label="Previous Image"
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button
+          className={`text-gray-800 ${arrowBtn}`}
+          onClick={next}
+          disabled={disabled}
+          aria-label="Next Image"
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }

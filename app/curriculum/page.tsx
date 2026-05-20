@@ -399,12 +399,14 @@ export default function CurriculumPage() {
                     </div>
                   </div>
 
-                  {/* Hint — "Click" on phones, "Hover" on desktop */}
+                  {/* Hint — "Click" on phones, "Hover" on desktop.
+                      Mobile version is intentionally larger and clearer so
+                      it's obviously tappable; desktop keeps the subtle hint. */}
                   <p
-                    className="mt-7 text-center text-[10px] uppercase tracking-[0.3em] font-semibold"
+                    className="mt-7 text-center font-semibold uppercase text-base tracking-[0.18em] md:text-[10px] md:tracking-[0.3em]"
                     style={{ color: "#111111" }}
                   >
-                    <span className="md:hidden">⤵ Click</span>
+                    <span className="md:hidden">⤵ Click to flip</span>
                     <span className="hidden md:inline">⤵ Hover</span>
                   </p>
                   </div>

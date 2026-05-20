@@ -167,9 +167,13 @@ export default function AboutPage() {
 
   return (
     <main ref={sectionRef}>
-      {/* Hero — full-screen image. id="hero-scroll" tells the Navbar to go
-          transparent while this section is in view, mirroring the home page. */}
-      <section id="hero-scroll" className="relative w-full h-screen overflow-hidden">
+      {/* Hero — DESKTOP / tablet: full-screen image. id="hero-scroll" tells the
+          Navbar to go transparent while this section is in view. Hidden on
+          phones, which get a boxed image inside the intro section below. */}
+      <section
+        id="hero-scroll"
+        className="hidden md:block relative w-full h-screen overflow-hidden"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/about-hero-new.png"
@@ -178,12 +182,24 @@ export default function AboutPage() {
         />
       </section>
 
-      {/* Intro text — pulled out of the hero box now that the image is full-screen */}
+      {/* Intro text — on desktop this follows the full-screen hero; on mobile
+          it leads the page with the boxed hero image stacked above. */}
       <section
-        className="px-4 sm:px-8 pt-12 sm:pt-16 pb-12 sm:pb-16"
+        className="px-4 sm:px-8 pt-28 md:pt-12 sm:pt-16 pb-12 sm:pb-16"
         style={{ background: "linear-gradient(180deg, #FDFCF0 0%, #FAF5E8 100%)" }}
       >
         <div className="max-w-7xl mx-auto">
+          {/* Mobile-only boxed hero image — the desktop version above is
+              full-bleed, while phones get the original contained card. */}
+          <div className="md:hidden about-hero-glow rounded-3xl overflow-hidden mb-8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/about-hero-new.png"
+              alt="A mother and her daughter reading together at home"
+              className="block w-full h-auto"
+            />
+          </div>
+
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--accent-gold)] mb-3">
               About Us

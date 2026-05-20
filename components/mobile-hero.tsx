@@ -195,8 +195,13 @@ export default function MobileHero() {
   return (
     // Outer div: scroll space that drives the timeline
     <div ref={outerRef} style={{ height: "520vh" }}>
-      {/* Sticky visual container — stays in view while outer scrolls */}
+      {/* Sticky visual container — stays in view while outer scrolls.
+          id="hero-scroll" lets the Navbar go transparent over the dark animation
+          and restore its cream background once we scroll past. (MobileHero is
+          inside <div class="md:hidden">, so this id only resolves on phones —
+          desktop's ParticleEffectHero owns it there.) */}
       <section
+        id="hero-scroll"
         className="sticky top-0 h-screen overflow-hidden"
         style={{
           background:
@@ -223,7 +228,7 @@ export default function MobileHero() {
         {/* STATE 1 — "Little Millennium" — centre */}
         <div
           ref={text1Ref}
-          className="absolute inset-0 flex items-center justify-center z-20 px-5 pointer-events-none"
+          className="absolute inset-0 flex flex-col items-center justify-center z-20 px-5 pointer-events-none"
         >
           <h1
             className="text-center"
@@ -240,6 +245,20 @@ export default function MobileHero() {
             <br />
             Millennium
           </h1>
+          {/* Scroll cue — tells visitors the animation is scroll-driven.
+              Sized so it's readable but not competing with the title. */}
+          <p
+            className="mt-6 flex items-center gap-2 text-white/85 uppercase font-medium animate-pulse"
+            style={{
+              fontFamily: "var(--font-poppins, Poppins, sans-serif)",
+              fontSize: "clamp(0.78rem, 3.2vw, 0.95rem)",
+              letterSpacing: "0.32em",
+              textShadow: "0 2px 10px rgba(0,0,0,0.5)",
+            }}
+          >
+            Scroll
+            <span aria-hidden="true" className="text-base leading-none">↓</span>
+          </p>
         </div>
 
         {/* STATE 2 — "Nurture Greatness" — left middle */}

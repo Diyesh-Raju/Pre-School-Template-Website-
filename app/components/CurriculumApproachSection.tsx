@@ -366,10 +366,17 @@ function FlipCard({ petal }: { petal: Petal }) {
             <img
               src={petal.image}
               alt=""
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[92%] max-h-[72%] object-contain pointer-events-none select-none"
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-h-[68%] object-contain pointer-events-none select-none"
               draggable={false}
               loading="lazy"
             />
+
+            {/* Mobile-only interaction hint — sits at the bottom of the card */}
+            <span
+              className="md:hidden absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] font-semibold text-[#1a1a1a]/70"
+            >
+              hover
+            </span>
           </div>
 
           {/* Back face — rotateY(180deg) means content was authored mirrored;

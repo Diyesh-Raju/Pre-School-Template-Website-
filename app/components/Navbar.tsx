@@ -210,13 +210,16 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Mobile hamburger button */}
+        {/* Mobile hamburger button — flips white over the dark hero animation
+            so it stays visible while the navbar background is transparent. */}
         <button
           type="button"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((v) => !v)}
-          className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-[#333333] hover:text-[#FF7F50] transition-colors"
+          className={`md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md hover:text-[#FF7F50] transition-colors ${
+            overHero && !mobileOpen ? "text-white" : "text-[#333333]"
+          }`}
         >
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             {mobileOpen ? (
