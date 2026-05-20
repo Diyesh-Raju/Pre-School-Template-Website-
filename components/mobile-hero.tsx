@@ -43,6 +43,7 @@ export default function MobileHero() {
   const text4Ref = useRef<HTMLDivElement>(null); // Playful Learning   — left-middle
   const text5Ref = useRef<HTMLDivElement>(null); // Holistic Growth    — right-middle
   const boxesRef = useRef<HTMLDivElement>(null); // School location cards — finale
+  const scrollCueRef = useRef<HTMLParagraphElement>(null); // "Scroll ↓" hint — persists across all word states
 
   // ── Ambient coral particles drifting up behind the words (lightweight) ──
   useEffect(() => {
@@ -184,8 +185,11 @@ export default function MobileHero() {
       tl.to(text4Ref.current, { opacity: 0, scale: 0.9, y: -18, duration: 0.8 }, 6.7)
         .to(text5Ref.current, { opacity: 1, y: 0, scale: 1, duration: 1 }, 7.4);
 
-      // 5 → finale: Holistic Growth out, the two school-location boxes appear
+      // 5 → finale: Holistic Growth out, the two school-location boxes appear.
+      // The "Scroll ↓" cue also fades out here — it has done its job once we're
+      // about to land on the campus cards.
       tl.to(text5Ref.current, { opacity: 0, scale: 0.9, y: -18, duration: 0.8 }, 8.9)
+        .to(scrollCueRef.current, { opacity: 0, y: 12, duration: 0.8 }, 8.9)
         .to(boxesRef.current, { opacity: 1, y: 0, scale: 1, duration: 1 }, 9.6);
     });
 
@@ -225,14 +229,13 @@ export default function MobileHero() {
           className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
         />
 
-        {/* STATE 1 — "Little Millennium" — centre, with a scroll cue pinned
-            near the bottom of the viewport (not stacked under the title). */}
+        {/* STATE 1 — "Little Millennium" — centre. */}
         <div
           ref={text1Ref}
-          className="absolute inset-0 z-20 px-5 pointer-events-none"
+          className="absolute inset-0 flex items-center justify-center z-20 px-5 pointer-events-none"
         >
           <h1
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
+            className="text-center"
             style={{
               fontFamily: "var(--font-poppins, Poppins, sans-serif)",
               fontWeight: 700,
@@ -246,21 +249,25 @@ export default function MobileHero() {
             <br />
             Millennium
           </h1>
-          {/* Scroll cue — sits towards the bottom of the screen so it reads
-              like a "keep going" prompt rather than a subtitle. */}
-          <p
-            className="absolute left-1/2 -translate-x-1/2 bottom-[12vh] flex items-center gap-2 text-white/85 uppercase font-medium animate-pulse"
-            style={{
-              fontFamily: "var(--font-poppins, Poppins, sans-serif)",
-              fontSize: "clamp(0.78rem, 3.2vw, 0.95rem)",
-              letterSpacing: "0.32em",
-              textShadow: "0 2px 10px rgba(0,0,0,0.5)",
-            }}
-          >
-            Scroll
-            <span aria-hidden="true" className="text-base leading-none">↓</span>
-          </p>
         </div>
+
+        {/* Scroll cue — sits towards the bottom of the screen and stays
+            visible across every word state, fading out only as the finale
+            (location boxes) appears. Lives outside text1Ref so it doesn't
+            fade with the first state. */}
+        <p
+          ref={scrollCueRef}
+          className="absolute left-1/2 -translate-x-1/2 bottom-[12vh] z-30 flex items-center gap-2 text-white/85 uppercase font-medium animate-pulse pointer-events-none"
+          style={{
+            fontFamily: "var(--font-poppins, Poppins, sans-serif)",
+            fontSize: "clamp(0.78rem, 3.2vw, 0.95rem)",
+            letterSpacing: "0.32em",
+            textShadow: "0 2px 10px rgba(0,0,0,0.5)",
+          }}
+        >
+          Scroll
+          <span aria-hidden="true" className="text-base leading-none">↓</span>
+        </p>
 
         {/* STATE 2 — "Nurture Greatness" — left middle */}
         <div
