@@ -225,13 +225,14 @@ export default function MobileHero() {
           className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
         />
 
-        {/* STATE 1 — "Little Millennium" — centre */}
+        {/* STATE 1 — "Little Millennium" — centre, with a scroll cue pinned
+            near the bottom of the viewport (not stacked under the title). */}
         <div
           ref={text1Ref}
-          className="absolute inset-0 flex flex-col items-center justify-center z-20 px-5 pointer-events-none"
+          className="absolute inset-0 z-20 px-5 pointer-events-none"
         >
           <h1
-            className="text-center"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
             style={{
               fontFamily: "var(--font-poppins, Poppins, sans-serif)",
               fontWeight: 700,
@@ -245,10 +246,10 @@ export default function MobileHero() {
             <br />
             Millennium
           </h1>
-          {/* Scroll cue — tells visitors the animation is scroll-driven.
-              Sized so it's readable but not competing with the title. */}
+          {/* Scroll cue — sits towards the bottom of the screen so it reads
+              like a "keep going" prompt rather than a subtitle. */}
           <p
-            className="mt-6 flex items-center gap-2 text-white/85 uppercase font-medium animate-pulse"
+            className="absolute left-1/2 -translate-x-1/2 bottom-[12vh] flex items-center gap-2 text-white/85 uppercase font-medium animate-pulse"
             style={{
               fontFamily: "var(--font-poppins, Poppins, sans-serif)",
               fontSize: "clamp(0.78rem, 3.2vw, 0.95rem)",

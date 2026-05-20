@@ -32,19 +32,31 @@ export default function Navbar() {
     let raf = 0;
     const update = () => {
       raf = 0;
-      const hero = document.getElementById("hero-scroll");
+      // Both the desktop ParticleEffectHero and the MobileHero use the same
+      // id, since only one is visible at a time (the other is `display: none`
+      // via responsive wrappers). getElementById returns the FIRST match in
+      // DOM order, which on phones is the hidden desktop hero (height 0) —
+      // so we walk all candidates and pick the first that's actually rendered.
+      const heroes = document.querySelectorAll<HTMLElement>("#hero-scroll");
+      let hero: HTMLElement | null = null;
+      for (const el of Array.from(heroes)) {
+        const rect = el.getBoundingClientRect();
+        if (rect.height > 0) {
+          hero = el;
+          break;
+        }
+      }
       if (!hero) {
         setOverHero(false);
         return;
       }
       const r = hero.getBoundingClientRect();
-      // height 0 → hero is display:none (mobile / other pages) → not over hero.
       // bottom > navbar height → the hero still covers the area behind the navbar.
       // Works for both the home page's 400vh pinned hero and a regular 100vh hero
       // (e.g. About page) — in both cases the bar stays transparent until you've
       // scrolled the hero almost entirely off the top of the viewport.
       const NAV_HEIGHT = 80;
-      setOverHero(r.height > 0 && r.bottom > NAV_HEIGHT);
+      setOverHero(r.bottom > NAV_HEIGHT);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
