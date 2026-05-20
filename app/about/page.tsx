@@ -167,30 +167,30 @@ export default function AboutPage() {
 
   return (
     <main ref={sectionRef}>
-      {/* Hero — image in a rounded box (box matches the image's own size,
-          image is never cropped or distorted) + short intro text */}
+      {/* Hero — full-screen image. id="hero-scroll" tells the Navbar to go
+          transparent while this section is in view, mirroring the home page. */}
+      <section id="hero-scroll" className="relative w-full h-screen overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/about-hero-new.png"
+          alt="A mother and her daughter reading together at home"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </section>
+
+      {/* Intro text — pulled out of the hero box now that the image is full-screen */}
       <section
-        className="px-4 sm:px-8 pt-32 sm:pt-40 pb-12 sm:pb-16"
+        className="px-4 sm:px-8 pt-12 sm:pt-16 pb-12 sm:pb-16"
         style={{ background: "linear-gradient(180deg, #FDFCF0 0%, #FAF5E8 100%)" }}
       >
         <div className="max-w-7xl mx-auto">
-          <div className="about-hero-glow rounded-3xl overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/about-hero.png"
-              alt="A mother and her daughter reading together at home"
-              className="block w-full h-auto"
-            />
-          </div>
-
-          {/* Some text */}
-          <div className="mt-8 sm:mt-10 max-w-3xl">
+          <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.3em] text-[var(--accent-gold)] mb-3">
               About Us
             </p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] mb-4 leading-tight">
               Where every child&apos;s{" "}
-              <span className="gradient-text">first big step</span> begins
+              <span style={{ color: "#2FD675" }}>first big step</span> begins
             </h1>
             <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed">
               The earliest years shape a lifetime. At Little Millennium, we
@@ -211,7 +211,7 @@ export default function AboutPage() {
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">
               The Pillars of{" "}
-              <span className="gradient-text">Little Millennium</span>
+              <span style={{ color: "#25A5F5" }}>Little Millennium</span>
             </h2>
           </div>
 
@@ -284,7 +284,7 @@ export default function AboutPage() {
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">
               Meet the{" "}
-              <span className="gradient-text">Heart of Our Classrooms</span>
+              <span style={{ color: "#9B59B6" }}>Heart of Our Classrooms</span>
             </h2>
           </div>
         </div>
@@ -338,7 +338,7 @@ export default function AboutPage() {
             {/* Heading, copy, awards carousel */}
             <div className="principal-content">
               <h2 className="text-4xl sm:text-5xl font-bold text-[var(--text-primary)] mb-5">
-                Our <span className="gradient-text">Awards</span>
+                Our <span style={{ color: "#9B59B6" }}>Awards</span>
               </h2>
               <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed max-w-xl mb-10">
                 Celebrated for what matters most — nurturing happy, confident,
@@ -443,7 +443,7 @@ export default function AboutPage() {
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] leading-tight">
             Ready to begin your child&rsquo;s journey with{" "}
-            <span className="gradient-text">Little Millennium</span>?
+            <span style={{ color: "#25A5F5" }}>Little Millennium</span>?
           </h2>
           <p className="mt-5 text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
             Book a campus visit and see our joyful, future-ready classrooms for

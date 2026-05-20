@@ -4,20 +4,31 @@ import { useEffect, useRef, useState } from "react";
 
 // Placeholder figures — swap with the real numbers.
 const stats = [
-  { value: 2000, suffix: "+", label: "Parents who trust us" },
-  { value: 5000, suffix: "+", label: "Student alumni" },
-  { value: 15, suffix: "+", label: "Years of experience" },
+  { value: 2000, suffix: "+", label: "Parents who trust us", color: "#9B59B6" },
+  { value: 5000, suffix: "+", label: "Student alumni", color: "#25A5F5" },
+  { value: 15, suffix: "+", label: "Years of experience", color: "#1ABC9C" },
 ];
+
+// Convert a hex (#RRGGBB) into an `rgba()` string at the given alpha.
+function rgba(hex: string, alpha: number) {
+  const v = hex.replace("#", "");
+  const r = parseInt(v.slice(0, 2), 16);
+  const g = parseInt(v.slice(2, 4), 16);
+  const b = parseInt(v.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 function StatBubble({
   value,
   suffix,
   label,
+  color,
   start,
 }: {
   value: number;
   suffix: string;
   label: string;
+  color: string;
   start: boolean;
 }) {
   const [n, setN] = useState(0);
@@ -52,13 +63,15 @@ function StatBubble({
     <div
       className="flex flex-col items-center text-center rounded-[2rem] sm:rounded-[2.5rem] px-8 py-10 sm:py-12"
       style={{
-        background: "linear-gradient(160deg, #FFFFFF 0%, #FFF4EC 100%)",
-        border: "2px solid rgba(255,127,80,0.55)",
-        boxShadow:
-          "0 20px 46px -16px rgba(255,127,80,0.40), 0 4px 14px rgba(255,127,80,0.12)",
+        background: `linear-gradient(160deg, #FFFFFF 0%, ${rgba(color, 0.14)} 100%)`,
+        border: `2px solid ${rgba(color, 0.55)}`,
+        boxShadow: `0 20px 46px -16px ${rgba(color, 0.40)}, 0 4px 14px ${rgba(color, 0.12)}`,
       }}
     >
-      <span className="text-5xl sm:text-6xl font-bold text-[#FF7F50] leading-none tabular-nums">
+      <span
+        className="text-5xl sm:text-6xl font-bold leading-none tabular-nums"
+        style={{ color }}
+      >
         {n.toLocaleString("en-US")}
         {suffix}
       </span>

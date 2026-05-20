@@ -96,13 +96,13 @@ export default function WhyUsPage() {
             />
             <div className="relative z-10 max-w-2xl px-7 sm:px-12 lg:px-16 py-14">
               <h2
-                className="text-5xl sm:text-6xl lg:text-8xl font-bold text-[#FF7F50] leading-[1.02]"
-                style={{ textShadow: "0 6px 24px rgba(0,0,0,0.55)" }}
+                className="text-5xl sm:text-6xl lg:text-8xl font-bold leading-[1.02]"
+                style={{ color: "#1ABC9C", textShadow: "0 6px 24px rgba(0,0,0,0.55)" }}
               >
                 Why Little Millennium?
               </h2>
               <p
-                className="mt-3 text-base sm:text-lg lg:text-xl font-medium text-white leading-relaxed"
+                className="mt-4 text-xl sm:text-2xl lg:text-3xl font-semibold text-white leading-relaxed"
                 style={{ textShadow: "0 3px 14px rgba(0,0,0,0.5)" }}
               >
                 Because big futures start with strong roots.

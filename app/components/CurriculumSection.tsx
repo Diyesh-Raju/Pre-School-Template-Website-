@@ -128,7 +128,7 @@ export default function CurriculumSection() {
                 <span className="text-3xl">{s.icon}</span>
                 <div>
                   <span
-                    className="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full"
+                    className="text-base sm:text-lg font-mono uppercase tracking-widest px-3 py-1 rounded-full font-semibold"
                     style={{
                       background: "rgba(0,0,0,0.12)",
                       color: "#000000",
@@ -136,7 +136,7 @@ export default function CurriculumSection() {
                   >
                     {s.stage}
                   </span>
-                  <p className="text-black/80 text-xs mt-1 font-medium">
+                  <p className="text-black/90 text-base sm:text-lg mt-2 font-semibold">
                     {s.grade} · {s.ages}
                   </p>
                 </div>

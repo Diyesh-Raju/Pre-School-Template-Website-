@@ -223,7 +223,7 @@ export default function CurriculumPage() {
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-3 sm:mb-4 leading-tight">
             Four-Stage{" "}
-            <span className="gradient-text">Learning Path</span>
+            <span style={{ color: "#DC69FF" }}>Learning Path</span>
           </h1>
           <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-2xl leading-relaxed">
             A purposefully designed developmental journey — from sensory roots

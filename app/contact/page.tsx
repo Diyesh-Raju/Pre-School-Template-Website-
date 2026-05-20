@@ -1,7 +1,76 @@
 import Link from "next/link";
-import { MessageSquare } from "lucide-react";
 import Footer from "../components/Footer";
 import { Reveal } from "@/components/Reveal";
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 32 32"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M16.003 3C9.374 3 4 8.374 4 15.003c0 2.115.553 4.18 1.604 5.998L4 28l7.18-1.572a11.97 11.97 0 0 0 4.823 1.013h.005c6.628 0 12.003-5.374 12.003-12.003C28.011 8.374 22.631 3 16.003 3Zm0 21.86h-.004a9.86 9.86 0 0 1-5.024-1.379l-.36-.213-4.262.932.953-4.155-.234-.37a9.86 9.86 0 0 1-1.51-5.272c0-5.452 4.435-9.887 9.892-9.887 2.641 0 5.124 1.029 6.992 2.898a9.823 9.823 0 0 1 2.9 6.993c-.002 5.452-4.437 9.453-9.343 9.453Zm5.43-7.408c-.297-.149-1.76-.868-2.033-.967-.273-.099-.471-.149-.67.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.148-1.254-.462-2.39-1.475-.883-.787-1.48-1.76-1.653-2.057-.173-.297-.018-.458.13-.606.133-.132.297-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.371-.024-.52-.074-.149-.67-1.612-.917-2.207-.241-.58-.486-.501-.67-.511l-.57-.01c-.198 0-.52.074-.792.371-.273.297-1.04 1.016-1.04 2.479s1.065 2.875 1.214 3.073c.149.198 2.097 3.202 5.082 4.488.71.306 1.264.489 1.696.626.713.227 1.361.195 1.874.118.572-.086 1.76-.72 2.009-1.414.248-.694.248-1.288.173-1.414-.074-.124-.272-.198-.57-.347Z" />
+    </svg>
+  );
+}
+
+function GmailIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 32 32"
+      aria-hidden="true"
+    >
+      <path d="M5 26.5h4.5V15.4L3 10.5v14a2 2 0 0 0 2 2Z" fill="#4285F4" />
+      <path d="M22.5 26.5H27a2 2 0 0 0 2-2v-14l-6.5 4.9v11.1Z" fill="#34A853" />
+      <path d="M22.5 8.5v6.9L29 10.5V9.5a2.4 2.4 0 0 0-3.84-1.91L22.5 8.5Z" fill="#FBBC04" />
+      <path d="M9.5 15.4V8.5L16 13.3l6.5-4.8v6.9L16 20.2 9.5 15.4Z" fill="#EA4335" />
+      <path d="M3 9.5v1l6.5 4.9V8.5L6.84 6.6A2.4 2.4 0 0 0 3 8.5v1Z" fill="#C5221F" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 32 32" aria-hidden="true">
+      <defs>
+        <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#F58529" />
+          <stop offset="50%" stopColor="#DD2A7B" />
+          <stop offset="100%" stopColor="#515BD4" />
+        </linearGradient>
+      </defs>
+      <rect x="3" y="3" width="26" height="26" rx="7" fill="url(#igGrad)" />
+      <circle cx="16" cy="16" r="6" fill="none" stroke="#fff" strokeWidth="2.2" />
+      <circle cx="23" cy="9" r="1.6" fill="#fff" />
+    </svg>
+  );
+}
+
+function TwitterIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="3" y="3" width="26" height="26" rx="7" fill="#000" />
+      <path
+        d="M19.5 9h2.3l-5 5.7L23 23h-4.6l-3.6-4.7L10.6 23H8.3l5.4-6.1L8 9h4.7l3.3 4.3L19.5 9Zm-.8 12.5h1.3L13.4 10.4h-1.4l6.7 11.1Z"
+        fill="#fff"
+      />
+    </svg>
+  );
+}
+
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="3" y="3" width="26" height="26" rx="7" fill="#1877F2" />
+      <path
+        d="M18.5 16.4h2.3l.4-3h-2.7v-1.9c0-.87.27-1.46 1.53-1.46h1.63V7.4a21.8 21.8 0 0 0-2.38-.12c-2.35 0-3.96 1.43-3.96 4.06v2.06H13v3h2.32V24.5h3.18v-8.1Z"
+        fill="#fff"
+      />
+    </svg>
+  );
+}
 
 const mapUrlPP = "https://maps.app.goo.gl/PVD5W2F86Ykoaz4d6";
 const mapUrlVB = "https://maps.app.goo.gl/hrDwxLsGX6drHNtMA";
@@ -92,8 +161,8 @@ export default function ContactPage() {
                 className="bg-white rounded-2xl p-8 flex flex-col gap-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-[#FF7F50]/30 shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-[#FF7F50]/10">
-                    <MessageSquare className="w-6 h-6 text-[#FF7F50]" />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-[#25D366]/15">
+                    <WhatsAppIcon className="w-7 h-7 text-[#25D366]" />
                   </div>
                   <h3 className="font-bold text-lg text-[#FF7F50]">
                     Connect on WhatsApp – Poorna Pragna
@@ -144,8 +213,8 @@ export default function ContactPage() {
                 className="bg-white rounded-2xl p-8 flex flex-col gap-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-[#FF7F50]/30 shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-[#FF7F50]/10">
-                    <MessageSquare className="w-6 h-6 text-[#FF7F50]" />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-[#25D366]/15">
+                    <WhatsAppIcon className="w-7 h-7 text-[#25D366]" />
                   </div>
                   <h3 className="font-bold text-lg text-[#FF7F50]">
                     Connect on WhatsApp – Vijaya Bank
@@ -174,8 +243,8 @@ export default function ContactPage() {
               className="bg-white rounded-2xl p-8 flex flex-col gap-5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-[#FF7F50]/30 shadow-sm"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 bg-[#FF7F50]/10">
-                  ✉️
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-white border border-[#FF7F50]/20">
+                  <GmailIcon className="w-7 h-7" />
                 </div>
                 <h3 className="font-bold text-lg text-[#FF7F50]">Email Us</h3>
               </div>
@@ -200,6 +269,50 @@ export default function ContactPage() {
               </p>
             </div>
 
+          </div>
+
+          {/* Social Media — Follow us */}
+          <div className="mt-10">
+            <div className="text-center mb-6">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--accent-gold)] mb-2">
+                Follow Us
+              </p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-[#333333]">
+                Stay connected on social
+              </h3>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+              <a
+                href="https://twitter.com/littlemillennium"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on X (Twitter)"
+                className="social-tile group"
+              >
+                <span className="social-tile-highlight" aria-hidden="true" />
+                <TwitterIcon className="social-tile-icon" />
+              </a>
+              <a
+                href="https://www.instagram.com/littlemillennium"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Instagram"
+                className="social-tile group"
+              >
+                <span className="social-tile-highlight" aria-hidden="true" />
+                <InstagramIcon className="social-tile-icon" />
+              </a>
+              <a
+                href="https://www.facebook.com/littlemillennium"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Facebook"
+                className="social-tile group"
+              >
+                <span className="social-tile-highlight" aria-hidden="true" />
+                <FacebookIcon className="social-tile-icon" />
+              </a>
+            </div>
           </div>
 
           {/* Enquiry prompt */}

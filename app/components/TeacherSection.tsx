@@ -60,15 +60,15 @@ export default function TeacherSection() {
         {/* Section header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--accent-gold)] mb-3">
+            <p className="text-sm sm:text-base uppercase tracking-[0.3em] text-[var(--accent-gold)] mb-3">
               Our Educators
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-[var(--text-primary)]">
               Teachers Who{" "}
               <span className="gradient-text">Transform</span>
             </h2>
           </div>
-          <p className="max-w-sm text-[var(--text-secondary)] text-base leading-relaxed">
+          <p className="max-w-md text-[var(--text-secondary)] text-lg sm:text-xl lg:text-2xl leading-relaxed">
             At Little Millennium, we believe the teacher is the most powerful
             variable in a child&apos;s early educational journey.
           </p>
@@ -79,13 +79,13 @@ export default function TeacherSection() {
           {pillars.map((p) => (
             <div
               key={p.title}
-              className="teacher-pillar glass rounded-2xl p-7 flex flex-col gap-4 hover:border-[#FF7F50]/50 transition-all duration-300"
+              className="teacher-pillar glass rounded-2xl p-8 sm:p-9 flex flex-col gap-5 hover:border-[#FF7F50]/50 transition-all duration-300"
             >
-              <div className="text-3xl">{p.icon}</div>
-              <h3 className="text-[var(--accent-gold)] font-semibold text-lg">
+              <div className="text-5xl sm:text-6xl">{p.icon}</div>
+              <h3 className="text-[var(--accent-gold)] font-semibold text-2xl sm:text-3xl leading-tight">
                 {p.title}
               </h3>
-              <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+              <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed">
                 {p.desc}
               </p>
             </div>

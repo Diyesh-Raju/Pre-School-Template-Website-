@@ -89,7 +89,7 @@ export default function GalleryPage() {
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--accent-gold)] mb-3 sm:mb-4">Gallery</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-3 sm:mb-4 leading-tight">
             Memories in{" "}
-            <span className="gradient-text">Motion</span>
+            <span style={{ color: "#FFF926" }}>Motion</span>
           </h1>
           <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-xl leading-relaxed">
             A visual journey through the vibrant life at Little Millennium—classrooms, celebrations, creativity, and community.

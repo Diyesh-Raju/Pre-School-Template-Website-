@@ -39,8 +39,12 @@ export default function Navbar() {
       }
       const r = hero.getBoundingClientRect();
       // height 0 → hero is display:none (mobile / other pages) → not over hero.
-      // bottom > viewport height → still within the 500vh pinned scroll.
-      setOverHero(r.height > 0 && r.bottom > window.innerHeight + 1);
+      // bottom > navbar height → the hero still covers the area behind the navbar.
+      // Works for both the home page's 400vh pinned hero and a regular 100vh hero
+      // (e.g. About page) — in both cases the bar stays transparent until you've
+      // scrolled the hero almost entirely off the top of the viewport.
+      const NAV_HEIGHT = 80;
+      setOverHero(r.height > 0 && r.bottom > NAV_HEIGHT);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);

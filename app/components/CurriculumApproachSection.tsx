@@ -198,7 +198,7 @@ export default function CurriculumApproachSection() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--text-primary)] mb-6 leading-[1.15]">
               A Scientifically Designed,
               <br />
-              <span className="gradient-text">Play-Based Curriculum</span>
+              <span style={{ color: "#FF771A" }}>Play-Based Curriculum</span>
             </h2>
             <p className="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed max-w-xl">
               The Seven Petal Approach is our proprietary learning method that

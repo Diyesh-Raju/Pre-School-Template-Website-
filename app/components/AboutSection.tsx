@@ -69,7 +69,7 @@ export default function AboutSection() {
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mb-8 leading-snug">
               A Mission Rooted in{" "}
-              <span className="gradient-text">Child Development</span>
+              <span style={{ color: "#25A5F5" }}>Child Development</span>
             </h2>
 
             <div className="space-y-4 text-[var(--text-secondary)] text-base leading-relaxed">
